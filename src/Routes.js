@@ -13,6 +13,8 @@ routes.get("/", (req, res) => {
 });
 
 routes.post("/address", validateAddress, AddressController.create);
+routes.delete("/address/:id", AddressController.delete);
+routes.put("/address/:id", AddressController.update);
 
 routes.post("/companies", validateCompanies, CompaniesController.create); 
 

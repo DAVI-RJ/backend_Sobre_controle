@@ -13,7 +13,7 @@ class CompaniesController {
 					[Op.or]: [{ email: email },{ cnpj: cnpj }]
 						}
 					});
-				console.log(typeof result)
+				console.log(result)
 			if(result) {
 
 				return res.json({message: "try login"});
@@ -29,7 +29,6 @@ class CompaniesController {
 			}
 		
 			}catch(err){	
-				console.error("erro na validação", err)
 				res.status(500).json({message: "error in create", error: err.message})
 				logger.error("validate error", err)
 		}

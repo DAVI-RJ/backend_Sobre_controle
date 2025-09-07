@@ -20,7 +20,8 @@ class Companies extends Model {
     });
   }
   static associate(models){
-    this.belongsTo(models.Address);
+    this.belongsTo(models.Address)
+    this.hasMany(models.Product);
   }
 }
 
