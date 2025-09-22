@@ -1,31 +1,26 @@
 import JWT from 'jsonwebtoken';
-import authconfig from '../../config/authconfig';
-
-import dotenv from "dotenv";
-dotenv.config();
+import authConfig from '../../config/authConfig.js';
 
 export default async (req, res, next) => {
-    const authHeard = req.headers.authorization;
-    if (!authHeard) {
-        return res.status(401).json({ error: "Token not provided" });
-    }
+	const authHeader = req.headers.authorization;
 
-    // Primeiro declare o token
-    const [, token] = authHeard.split(" ");
+	if (!authHeader) {
+		return res.status(401).json({ error: "Token not provided" });
+	}
 
-    // Agora pode usar o token
-    console.log(token);
+	// Primeiro declare o token
+	const [, token] = authHeader.split(" ");
 
-    try {
-        const decoded = await (JWT.verify)(token, authconfig.secret);
+	try {
+		const decoded = await (JWT.verify)(token, authConfig.secret);
 
-        req.userId = decoded.id;
-        console.log({decoded});
+		req.userId = decoded.id;
+		console.log(decoded);
 
-        return next();
-    } catch (error) {
-        console.log({error});
-        return res.status(401).json({ error: "Token invalid" });
-    }
+		return next();
+
+	} catch (err) {
+		return res.status(401).json({ error: "Token invalid", err});
+	}
 };
 

@@ -2,27 +2,27 @@
 
 export default {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable("suppliers", { 
-      id_supplier: {
+    await queryInterface.createTable("customers", { 
+      id_customer: {
         type: Sequelize.INTEGER,
         allowNull: false, 
         primaryKey: true, 
         autoIncrement: true
       },
-      cnpj_supplier: {
+      cnpj_customer: {
         type: Sequelize.STRING(18),
         unique: true,
         allowNull: false
       },
-      name_supplier: {
+      name_customer: {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
-      phone_supplier: {
-        type: Sequelize.STRING(18),
+      phone_customer: {
+        type: Sequelize.STRING(15),
         allowNull: false
       },
-      status_supplier: {
+      status: {
         type: Sequelize.ENUM("active", "inactive", "canceled"), 
         defaultValue: "active",
       },
@@ -41,10 +41,10 @@ export default {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       }
-    });
-  },
+      });
+    },
 
-  async down (queryInterface) {
-    await queryInterface.dropTable('suppliers');
-  }
+    async down (queryInterface) {
+      await queryInterface.dropTable('customers');
+    }
 };

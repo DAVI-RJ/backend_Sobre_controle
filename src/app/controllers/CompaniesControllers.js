@@ -4,6 +4,21 @@ import logger from "../../../logs/logs.js";
 import Companies from "../models/Companies.js"
 
 class CompaniesController {
+	async show (req, res){
+		const id = req.params.id;
+
+		const result = await Companies.findOne({
+			where: {
+				id: id
+			}
+		}); 
+		if(result){
+			res.json(result);
+		}else{
+			res.status(404).json({message: "company not found"});
+		}	
+	}
+
 	async create (req, res) {
 		const { email, password, cnpj } = req.body;
 
@@ -13,7 +28,7 @@ class CompaniesController {
 					[Op.or]: [{ email: email },{ cnpj: cnpj }]
 						}
 					});
-				console.log(result)
+				
 			if(result) {
 
 				return res.json({message: "try login"});
@@ -21,11 +36,13 @@ class CompaniesController {
 			}else {
 				
 				const password_hash = await bcrypt.hash(password, 8);
-				console.log(password_hash)	
+					
 				const newCompany = await Companies.create({
 					...req.body, password: password_hash});
+				
+				const {name, email, cnpj } = newCompany;
 
-				return res.status(201).json({ message: 'User created successfully', newCompany }); 
+				return res.status(201).json({ message: 'User created successfully', name, email, cnpj}); 
 			}
 		
 			}catch(err){	
@@ -34,21 +51,33 @@ class CompaniesController {
 		}
 	}
 
-	async update (req, res) {
-		const Company = await Companies.findByPk(req.params.id);
+	async update (req, res, next) {
+		const { id } = req.params; 
 
-		if(!Company) {
-      return res.status(404).json();
+		if(isNaN(id)){
+			const error = new Error("id not exist");
+      error.statusCode = 400;
+      next(error); 
+		}
+		const company = await Companies.findByPk(req.params.id);
+
+		if(!company) {
+			const error = new Error("no records found.");
+      error.statusCode = 404;
+      next(error); 
   	}
-  	await Company.update(req.body);
-		logger.info(Company)
+  	await company.update(...req.body);
+
+		return res.json({
+			message: "company edtaded sucessufuly", 
+		});
 	};
   
 	async destroy (req, res) {
   	const Company = await Companies.findByPk(req.params.id);
   
   	if(!Company) {
-      return res.status(404).json();
+      return res.status(404).json({message: "not found any company with id"});
   	}
   	await Company.destroy();
 

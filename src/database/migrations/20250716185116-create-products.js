@@ -7,22 +7,20 @@ export default {
         type: Sequelize.INTEGER,
         allowNull: false, 
         primaryKey: true,
+        autoIncrement: true
       },
       name_product: {
         type: Sequelize.STRING,
         allowNull: false
-
       },
       description: {
         type: Sequelize.TEXT,
         allowNull: false
-
       },
       price: {
         type: Sequelize.DECIMAL(10,2),
         allowNull: false
       },
-
       quantity: {
         type: Sequelize.INTEGER, 
         allowNull: false
@@ -36,13 +34,12 @@ export default {
         type: Sequelize.DATE
       },
       company_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      Reference: {models: "companies", key: "id"},  
-      onUpdate: "CASCADE",
-      onDelete: "CASCADE"
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        Reference: {models: "companies", key: "id"},  
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
       }
-
     });
   },
 

@@ -1,4 +1,4 @@
-Gestão empresarial
+Sobre controle
 
 Este repositório apresenta o backend de um projeto Full-stack desenvolvido com foco em boas práticas de codificação e uma arquitetura robusta. Meu objetivo não é fornecer um "projeto ideal" universal, mas sim demonstrar uma abordagem cuidadosa no desenvolvimento backend com Node.js e Express, utilizando Sequelize como ORM. A intenção é exibir a aplicação de princípios de design e engenharia de software em um contexto real, entendendo que cada projeto possui suas necessidades específicas.
 Tecnologias Utilizadas
@@ -47,7 +47,7 @@ cd backend_node.js
    npx sequelize-cli db:migrate
 
  * Inicie o servidor:
-   npm start # ou node src/server.js
+   yarn run dev
 
    O servidor estará rodando em http://localhost:[PORTA_CONFIGURADA_NO_ENV].
 Testes

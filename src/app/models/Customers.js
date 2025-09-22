@@ -1,17 +1,17 @@
 import Sequelize, { Model } from "sequelize";
 
-class Suppliers extends Model {
+class Customers extends Model {
   static init(sequelize) {
     super.init({
-      cnpj: Sequelize.STRING(18),
-      name: Sequelize.STRING(100),
-      phone: Sequelize.STRING(15),
-      status: Sequelize.ENUM("enum_companies_status"), 
+      cnpj_customer: Sequelize.STRING(18),
+      name_customer: Sequelize.STRING(100),
+      phone_customer: Sequelize.STRING(15),
+      situation: Sequelize.ENUM("enum_companies_status"), 
       address_id: Sequelize.INTEGER
     },
     {
       sequelize,
-      tableName: "suppliers",
+      tableName: "customers",
       timestamps: true,
       underscored: true
     });
@@ -21,4 +21,4 @@ class Suppliers extends Model {
   }
 }
 
-export default Suppliers; 
+export default Customers; 

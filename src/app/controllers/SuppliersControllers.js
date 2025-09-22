@@ -1,31 +1,57 @@
-import logger from "../../../logs/logs.js";
 import Suppliers from "../models/Supplier.js";
 
 class SupplierController {
-  async create (req, res) {
+  async create (req, res, next) {
 		const {cnpj } = req.body;
 
 		try {		
 			const result = await Suppliers.findOne({
 				where: {
 					cnpj: cnpj 
-						}
-					});
-				console.log(typeof result)
+					}
+				});
 			if(result) {
 
-				return res.json({message: "Supplier alredy registred"});
+				return res.json({
+					message: "Supplier alredy registred"
+				});
 				
 			}else {	
 				const newSupplier = await Suppliers.create(req.body);
 
-				return res.status(201).json({ message: "Supplier created successfully", newSupplier }); 
+				const {name, cnpj} = newSupplier; 
+
+				return res.status(201).json({ message: "Supplier created successfully", 
+					name, cnpj
+				}); 
 			}
 		
 			}catch(err){	
-				console.error("erro na validação", err)
-				res.status(500).json({message: "error in create", error: err.message})
-				logger.error("validate error", err)
+				const error = new Error("error server.");
+      	error.statusCode = 500;
+      	next(err);
+		}
+	}
+
+	async destroy (req, res, next) {
+		const {id} = req.params.id; 
+		try{
+			const supplier = await Suppliers.findByPk(id);
+			
+			if(!supplier){
+				res.status(404).json({
+					message: "supplier not found with this id"
+				});
+			}
+			await supplier.destroy();
+			res.status(200).json({
+				message: "supplier deleted successfully"
+			})
+			
+		}catch(err){
+			const error = new Error("error server.");
+			error.statusCode = 404;
+			next(err);
 		}
 	}
 }

@@ -29,8 +29,8 @@ export default {
       type: Sequelize.STRING(10)
     },
     created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
+      allowNull: false,
+      type: Sequelize.DATE
     },
     updated_at: {
       allowNull: false,

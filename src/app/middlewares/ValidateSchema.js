@@ -45,7 +45,14 @@ const validate = (schema) => async (req, res, next) => {
   }
 };
 
+export const productSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  description: Yup.string().required("Description is required"),
+  price: Yup.number().required("Price is required").positive("Price must be positive"),
+});
+
 export const validateAddress = validate(addressSchema);
 export const validateCompanies = validate(companiesSchema);
 export const validateLogin =  validate(loginSchema)
 export const validateUser = validate(userSchema);
+export const validateProduct = validate(productSchema);
