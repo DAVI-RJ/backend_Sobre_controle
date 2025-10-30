@@ -36,7 +36,7 @@ class AddressController {
 
     try {
       const newAddress = await Address.create({ street, number, neighborhood, city, state });
-      return res.status(201).json(newAddress);
+      return res.status(201).json(newAddress, {id: newAddress.id});
     } catch (err) {
       next(err);
     }

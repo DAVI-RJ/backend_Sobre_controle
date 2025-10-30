@@ -32,5 +32,25 @@ class customersControllers {
       return next(err);
     }
   }
+
+  async destroy (req, res, next) {
+    const id = req.id.params; 
+
+    try {
+      const result = await Customers.findByPk(id);
+
+      if(result){
+        Customers.destroy(result);
+        res.status(200).json({message: "Custumer deleted sucessufuly"}); 
+      }else {
+        res.status(404).json({message: "Custumer not found"})
+      }
+      
+    }catch(err){
+      const error = new Error("Error server");
+      error.statusCode = 500; 
+      return next(err)
+    }
+  }
 }
 export default new customersControllers; 

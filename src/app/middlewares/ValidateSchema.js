@@ -30,6 +30,13 @@ export const addressSchema = Yup.object().shape({
   state: Yup.string().required("State is required")
 });
 
+export const productSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  description: Yup.string().required("Description is required"),
+  price: Yup.number().required("Price is required").positive("Price must be positive"),
+});
+
+
 const validate = (schema) => async (req, res, next) => {
   try {
     await schema.validate(req.body, { abortEarly: false });
@@ -44,12 +51,6 @@ const validate = (schema) => async (req, res, next) => {
     next(err);
   }
 };
-
-export const productSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  description: Yup.string().required("Description is required"),
-  price: Yup.number().required("Price is required").positive("Price must be positive"),
-});
 
 export const validateAddress = validate(addressSchema);
 export const validateCompanies = validate(companiesSchema);

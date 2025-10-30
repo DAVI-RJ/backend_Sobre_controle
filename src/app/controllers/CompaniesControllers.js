@@ -1,25 +1,37 @@
 import {Op} from "sequelize"; 
 import bcrypt from "bcryptjs";
-import logger from "../../../logs/logs.js";
 import Companies from "../models/Companies.js"
 
 class CompaniesController {
-	async show (req, res){
+	async show (req, res, next){
 		const id = req.params.id;
+		try{
+			const result = await Companies.findOne({
+				where: {
+					id: id
+				}
+			}); 
+			if(result){
 
-		const result = await Companies.findOne({
-			where: {
-				id: id
-			}
-		}); 
-		if(result){
-			res.json(result);
-		}else{
-			res.status(404).json({message: "company not found"});
-		}	
+				const {name, cnpj } = result; 
+				res.status(200).json({
+					data: {
+							name, 
+							cnpj
+						}
+				});
+			}else{
+				res.status(404).json({message: "company not found"});
+			}	
+		}catch(err){
+			res.status(500).json({
+				message: "erro server"
+			})
+			next(err)
+		}
 	}
 
-	async create (req, res) {
+	async create (req, res, next) {
 		const { email, password, cnpj } = req.body;
 
 		try {		
@@ -45,43 +57,60 @@ class CompaniesController {
 				return res.status(201).json({ message: 'User created successfully', name, email, cnpj}); 
 			}
 		
-			}catch(err){	
-				res.status(500).json({message: "error in create", error: err.message})
-				logger.error("validate error", err)
+		}catch(err){	
+			res.status(500).json({message: "error server"})
+			next(err);
 		}
 	}
 
 	async update (req, res, next) {
 		const { id } = req.params; 
 
-		if(isNaN(id)){
+		if(isNaN(id) || id === null){
 			const error = new Error("id not exist");
       error.statusCode = 400;
       next(error); 
 		}
-		const company = await Companies.findByPk(req.params.id);
+		try{
+			const company = await Companies.findByPk(id);
 
-		if(!company) {
-			const error = new Error("no records found.");
-      error.statusCode = 404;
-      next(error); 
-  	}
-  	await company.update(...req.body);
+			if(!company) {
+				const error = new Error("no records found.");
+				error.statusCode = 404;
+				next(error); 
+			}else{
+				/*const {
+					name,
+					cnpj,
+					representative,
+					email,
+					phone, 
+					password, 
+				 } = req.body; 
+				*/
+				await company.update(...req.body);
 
-		return res.json({
-			message: "company edtaded sucessufuly", 
-		});
+				return res.json({
+					message: "company edtaded sucessufuly", 
+				});
+			}
+		}catch(err){
+			next(err)
+		}
 	};
   
-	async destroy (req, res) {
+	async destroy (req, res, next) {
   	const Company = await Companies.findByPk(req.params.id);
-  
-  	if(!Company) {
+		try{
+			if(!Company) {
       return res.status(404).json({message: "not found any company with id"});
-  	}
-  	await Company.destroy();
+  		}
+  		await Company.destroy();
 
-  	return res.json({mensage: "User deleted successfully."});
+  		return res.json({mensage: "User deleted successfully."});
+		}catch(err){
+			next(err); 
+		}
 	}
 }
 
