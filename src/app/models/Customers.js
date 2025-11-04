@@ -6,6 +6,7 @@ class Customers extends Model {
       cnpj_customer: Sequelize.STRING(18),
       name_customer: Sequelize.STRING(100),
       phone_customer: Sequelize.STRING(15),
+      email: Sequelize.STRING(100),
       situation: Sequelize.ENUM("enum_companies_status"), 
       address_id: Sequelize.INTEGER
     },

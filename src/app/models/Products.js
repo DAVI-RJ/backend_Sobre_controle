@@ -18,6 +18,11 @@ class Products extends Model {
   }
   static associate(models){
     this.belongsTo(models.Companies);
+    this.belongsToMany(models.Sales, {
+      through: models.SalesProducts, 
+      foreignKey: "id_product",
+      otherKey: "id_sales"
+    });
   }
 }
 

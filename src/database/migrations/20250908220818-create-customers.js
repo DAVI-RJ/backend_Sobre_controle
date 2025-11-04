@@ -18,6 +18,11 @@ export default {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
+      email_customer: {
+        type: Sequelize.STRING(100),
+        unique: true,
+        allowNull: false
+      },
       phone_customer: {
         type: Sequelize.STRING(15),
         allowNull: false

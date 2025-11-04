@@ -21,6 +21,7 @@ class Address extends Model {
   static associate(models){
     this.hasMany(models.Companies);
     this.hasMany(models.Suppliers);
+    this.hasMany(models.Customers);
   }
 }
 
