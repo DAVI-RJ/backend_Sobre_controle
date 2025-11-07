@@ -1,0 +1,11 @@
+#logs
+/logs
+
+#pastas 
+/node_modules
+
+#arquivos
+.env
+eslint.config.mjs
+nodemon.json
+yarn.lock
