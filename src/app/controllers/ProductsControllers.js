@@ -1,9 +1,9 @@
 import { Op } from "sequelize"; 
 import { parseISO } from "date-fns";
-import Products from "../models/Product.js"
+import Products from "../models/Products.js"
 
 class productsControllers {
-  // Listar produtos com filtros opcionais
+  // Listar de produtos com filtros opcionais
   async show(req, res, next) {
     try {
       const { name, description, price, quantity } = req.query;
@@ -102,7 +102,7 @@ class productsControllers {
       next(err); 
     }
   }
-
+// retorna o produto por id
 	async index (req, res, next){
 		const {id} = req.params.id;
 
@@ -122,6 +122,7 @@ class productsControllers {
 		}
 	}
 
+	// criação de novo produto
   async create(req, res, next) {
 		const { name, description, price, quantity } = req.body;
 

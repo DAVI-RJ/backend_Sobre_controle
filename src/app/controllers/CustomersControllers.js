@@ -1,6 +1,7 @@
 import Customers from "../models/Customers.js";
 
 class customersControllers {
+  // Criar um novo cliente
   async create (req, res, next){
     const {cnpj} = req.body;
 
@@ -32,7 +33,7 @@ class customersControllers {
       return next(err);
     }
   }
-
+  // Deletar cliente do sistema
   async destroy (req, res, next) {
     const id = req.id.params; 
 

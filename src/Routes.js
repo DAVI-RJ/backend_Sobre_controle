@@ -17,7 +17,8 @@ routes.get("/", (req, res) => {
 });
 
 routes.post("/login", validateLogin, LoginController.show);
-routes.post("/companies", validateCompanies, CompaniesController.create);
+routes.post("/refresh", LoginController.refresh);
+routes.post("/register", validateCompanies, CompaniesController.create);
 routes.post("/address", validateAddress, AddressController.create);
 
 /* routas privadas */ 

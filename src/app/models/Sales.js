@@ -1,9 +1,9 @@
 import Sequelize, { Model } from "sequelize";
 
 class Sales extends Model{
-  static init (sequelize){
+  static init(sequelize){
     super.init({
-      valor_sales: Sequelize.DECIMAL(10.2),
+      valor_sales: Sequelize.DECIMAL(10,2),
       sales_date: Sequelize.DATE,
       id_customer: Sequelize.INTEGER,
       quantity: Sequelize.INTEGER,  
@@ -17,9 +17,9 @@ class Sales extends Model{
       underscored: true
     }); 
   }
-  static associations(models){
+  static associate(models){
     this.belongsTo(models.Customers),
-    this.belongsToMany(models.Product, {
+    this.belongsToMany(models.Products, {
       through: models.SalesProducts,
       foreignKey: "id_sale", 
       otherKey: "id_product"
@@ -27,4 +27,4 @@ class Sales extends Model{
   }
 }
 
-export default new Sales; 
+export default Sales; 

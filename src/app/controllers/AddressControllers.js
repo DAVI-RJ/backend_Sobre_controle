@@ -2,7 +2,7 @@ import Address from "../models/Address.js";
 import { Op } from "sequelize";
 
 class AddressController {
-  
+  // Retorna um endereço ja existente
   async show(req, res, next) {
     const { street, city, state } = req.query;
     let where = {};
@@ -30,7 +30,7 @@ class AddressController {
       next(err);
     }
   }
-
+  // Criar endereço no cadastro do usuário, cliente e fornecedor
   async create(req, res, next) {
     const { street, number, neighborhood, city, state } = req.body;
 
@@ -42,6 +42,7 @@ class AddressController {
     }
   }
 
+  // Atualizar dados do endereço
   async update(req, res, next) {
     const { id } = req.params;
     try {
@@ -58,6 +59,7 @@ class AddressController {
     }
   }
 
+  //Deletar um endereço cadastrado 
   async destroy(req, res, next) {
     const { id } = req.params;
     try {

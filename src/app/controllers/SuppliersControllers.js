@@ -1,6 +1,7 @@
-import Suppliers from "../models/Supplier.js";
+import Suppliers from "../models/Suppliers.js";
 
 class SupplierController {
+	// Endpoint para criação de novo fornecedor
   async create (req, res, next) {
 		const {cnpj } = req.body;
 
@@ -32,7 +33,7 @@ class SupplierController {
       	next(err);
 		}
 	}
-
+	// Deletar fornecedor 
 	async destroy (req, res, next) {
 		const {id} = req.params.id; 
 		try{

@@ -1,7 +1,7 @@
 import Sequelize, { Model } from "sequelize";
 
 
-class SalesProduct extends Model{
+class SalesProducts extends Model{
   static init(sequelize){
     super.init({
       quantity_sold: Sequelize.INTEGER,
@@ -17,8 +17,8 @@ class SalesProduct extends Model{
   }
   static associate(models){
     this.belongsTo(models.Products, { foreignKey: 'id_product' });
-    this.belongsTo(models.SalesModels, { foreignKey: 'id_sale' });
+    this.belongsTo(models.Sales, { foreignKey: 'id_sales' });
   }
 }
 
-export default new SalesProduct; 
+export default SalesProducts; 

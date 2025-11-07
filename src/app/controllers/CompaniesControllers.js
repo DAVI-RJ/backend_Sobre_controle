@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import Companies from "../models/Companies.js"
 
 class CompaniesController {
+	// Listar uma empresa 
 	async show (req, res, next){
 		const id = req.params.id;
 		try{
@@ -30,7 +31,7 @@ class CompaniesController {
 			next(err)
 		}
 	}
-
+	// Endpoint para cadastro
 	async create (req, res, next) {
 		const { email, password, cnpj } = req.body;
 
@@ -63,6 +64,7 @@ class CompaniesController {
 		}
 	}
 
+	// Rota para atualizar perfil
 	async update (req, res, next) {
 		const { id } = req.params; 
 
@@ -99,6 +101,7 @@ class CompaniesController {
 		}
 	};
   
+	// Excluir conta
 	async destroy (req, res, next) {
   	const Company = await Companies.findByPk(req.params.id);
 		try{
