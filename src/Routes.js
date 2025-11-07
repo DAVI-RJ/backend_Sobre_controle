@@ -3,7 +3,6 @@ import { validateAddress, validateCompanies, validateLogin, validateProduct } fr
 
 import authToken from "./app/middlewares/Auth.js";
 
-
 import CompaniesController from "./app/controllers/CompaniesControllers.js";
 import AddressController from "./app/controllers/AddressControllers.js";
 import LoginController from "./app/controllers/LoginControllers.js";

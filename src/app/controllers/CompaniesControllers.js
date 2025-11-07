@@ -34,6 +34,7 @@ class CompaniesController {
 	// Endpoint para cadastro
 	async create (req, res, next) {
 		const { email, password, cnpj } = req.body;
+		console.log("teste",email)
 
 		try {		
 			const result = await Companies.findOne({
