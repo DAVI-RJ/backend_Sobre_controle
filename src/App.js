@@ -10,16 +10,12 @@ import "./database/index.js";
 class app {
 	constructor(){
 			this.server = express();
-
-			// Quando estiver atrás de um proxy (heroku/nginx/etc) isso permite
-			// que o express reconheça o protocolo original (https) e assim
-			// cookies com { secure: true } possam funcionar.
 			this.server.set('trust proxy', 1);
 
 			this.middlewares();
 			this.routes();
 
-			// error middleware deve vir POR ÚLTIMO
+			// errors
 			this.server.use(errorMiddleware);
 	}
 

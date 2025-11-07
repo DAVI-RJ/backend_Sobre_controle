@@ -75,7 +75,7 @@ Para configurar e executar este projeto localmente, siga os passos abaixo:
 A qualidade de software é uma prioridade fundamental neste projeto. Embora os testes detalhados (unitários, de integração e ponta a ponta) não estejam incluídos diretamente neste repositório principal, eles foram desenvolvidos e estão disponíveis em um repositório dedicado.
 Você pode explorar as estratégias de teste, as abordagens de qualidade de software e as ferramentas utilizadas para este projeto em:
 
-Demonstração do Projeto
-Para ter uma visão rápida das funcionalidades principais do projeto em ação e como as APIs se comportam, confira as demonstrações abaixo:
- * login empresa: 
- 
+#### Demonstração do Projeto
+  Para ter uma visão rápida das funcionalidades principais do projeto em ação e como as APIs se comportam, confira as demonstrações abaixo:
+  - login empresa: 
+  
