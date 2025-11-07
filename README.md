@@ -1,5 +1,15 @@
-# 🧠 Sobre Controle – Backend Node.js
-Este repositório apresenta o backend de um projeto Full-stack desenvolvido com foco em arquitetura escalável, segurança e boas práticas de engenharia de software. A aplicação foi construída com Node.js e Express, utilizando Sequelize como ORM e PostgreSQL como banco de dados. O objetivo é demonstrar domínio técnico em desenvolvimento backend moderno, com atenção à qualidade de código, modularidade e segurança.
+# 📦 Sobre Controle – Backend Node.js
+Este repositório apresenta o backend de um sistema Full-stack Web desenvolvido para atender à necessidade de melhorar o controle de clientes, fornecedores e produtos em ambientes comerciais. A aplicação foi criada com foco em gestão eficiente, segurança de dados e tomada de decisão baseada em informações confiáveis.
+
+O sistema tem como finalidade:
+
+- Gerenciar o cadastro de produtos e os clientes que os consomem
+- Controlar matérias-primas e os fornecedores que as fornecem
+- Facilitar a emissão de relatórios gerenciais
+- Otimizar o controle de gastos
+- Organizar e manter a gestão de contatos comerciais
+
+Construído com Node.js e Express, utilizando Sequelize como ORM e PostgreSQL como banco de dados, este backend reflete um compromisso com boas práticas de engenharia de software, arquitetura escalável e código limpo, aplicando conceitos modernos como autenticação com JWT, validação com Yup, e logging com Winston.
 
 ## 🚀 Tecnologias Utilizadas
  - Backend: Node.js, Express.js
