@@ -77,7 +77,7 @@ O projeto segue a arquitetura MVC (Model-View-Controller), promovendo separaçã
 ## 🧪 Testes e Qualidade
 Teste feitos com o postman
 
-#### Demonstração teste funcionais com prints 
+#### 🐞 Demonstração teste funcionais com prints 
   Para ter uma visão rápida das funcionalidades principais do projeto em ação e como as APIs se comportam, confira as demonstrações abaixo:
   - login empresa: 
   ![criando um endereço](./docs/CT001-login.png)

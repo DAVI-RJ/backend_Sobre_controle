@@ -39,7 +39,7 @@ class LoginController {
   //Endpoit para cookie HttpOnly
   async refresh(req, res, next) {
     try {
-      const refreshToken = req.cookies && req.cookies.refreshToken;
+      const refreshToken = req.cookies || req.cookies.refreshToken;
       if (!refreshToken) {
         const error = new Error('Refresh token not provided');
         error.statusCode = 401;
