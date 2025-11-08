@@ -9,39 +9,38 @@ import "./database/index.js";
 
 class app {
 	constructor(){
-			this.server = express();
-			this.server.set('trust proxy', 1);
+		this.server = express();
+		this.server.set('trust proxy', 1);
 
-			this.middlewares();
-			this.routes();
+		this.middlewares();
+		this.routes();
 
-			// errors
-			this.server.use(errorMiddleware);
+		// errors
+		this.server.use(errorMiddleware);
 	}
 
 	middlewares() {
 		this.server.use(express.json());
-		// parser para cookies 
 		this.server.use(cookieParser());
 
 		const FRONTEND_URL = process.env.FRONTEND_URL;
 
+		// sets para cookies e rotas autorizadas
 		const corsOptions = {
+			credentials: true, 
+			methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+			allowedHeaders: ['Content-Type','Authorization'],
 			origin: (origin, callback) => {
 				if (!origin){
 					return callback(null, true);
 				}
 				const whitelist = [FRONTEND_URL];
-				if (whitelist.indexOf(origin) !== -1) {
+				if (whitelist.includes(origin)) {
 					callback(null, true);
 				} else {
 					callback(new Error('Not allowed by CORS'));
 				}
-			},
-			// sets para cookies
-			credentials: true, 
-			methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-			allowedHeaders: ['Content-Type','Authorization']
+			}
 		};
 
 		// usar as configuraçẽs do cors

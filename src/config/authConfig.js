@@ -7,6 +7,6 @@ export default
 		expiresIn: "1h",
 
 		// refresh token 
-		refreshSecret: process.env.JWT_SECRET, //process.env.REFRESH_SECRET || 
-		refreshExpiresIn: process.env.REFRESH_EXPIRES || "30d",
+		refreshSecret: process.env.JWT_REFRESH_TOKEN, //process.env.REFRESH_SECRET || 
+		refreshExpiresIn:"30d",
 	}   

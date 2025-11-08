@@ -29,17 +29,85 @@ class LoginController {
         expiresIn: authConfig.expiresIn
       });
 
-      res.json(token);
+      const refreshToken = jwt.sign({ id: result.id }, authConfig.refreshSecret, {
+        expiresIn: authConfig.refreshExpiresIn
+      });
+
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict', 
+        path: '/refresh',
+        maxAge: 30 * 24 * 60 * 60 * 1000
+      });
+
+      console.log('refreshToken', refreshToken)
+
+      return res.json({token: token});
 
     } catch (err) {
       next(err); 
     }
   }
 
-  //Endpoit para cookie HttpOnly
+  async refresh (req, res, next) {
+    const cookiesToken = req.cookies.refreshToken; 
+
+    try {
+      if(!cookiesToken){ 
+        const error = new Error('Refresh token not provided');
+        error.statusCode = 401;
+        return next(error);
+      }
+
+      let payload;
+    
+      try {
+        payload = (jwt.verify)(cookiesToken, authConfig.refreshSecret);
+      } catch (err) {
+        err.statusCode = 401;
+        return next(err);
+      }
+
+      const user = await Companies.findByPk(payload.id);
+      
+      if(!user){
+        const error = new Error('User not found');
+        error.statusCode = 404;
+        return next(error);
+      }
+      // novo access token
+      const newAccessToken = jwt.sign({ id: user.id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn
+      });
+
+      const newRefreshToken = jwt.sign({ id: user.id }, authConfig.refreshSecret, {
+        expiresIn: authConfig.refreshExpiresIn
+      });
+
+      res.cookie('refreshToken', newRefreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict', 
+        path: '/refresh',
+        maxAge: 30 * 24 * 60 * 60 * 1000
+      });
+
+      return res.json({ token: newAccessToken });
+
+    }catch(err){
+      next(err);
+    }
+  }
+}
+export default new LoginController();
+
+
+  //Endpoit para cookies HttpOnly
+  /*
   async refresh(req, res, next) {
     try {
-      const refreshToken = req.cookies || req.cookies.refreshToken;
+      const refreshToken = req.headers.authorization || req.headers.refreshToken;
       if (!refreshToken) {
         const error = new Error('Refresh token not provided');
         error.statusCode = 401;
@@ -48,7 +116,7 @@ class LoginController {
 
       let payload;
       try {
-        payload = jwt.verify(refreshToken, authConfig.refreshSecret);
+        payload = (jwt.verify)(refreshToken, authConfig.refreshSecret);
       } catch (err) {
         err.statusCode = 401;
         return next(err);
@@ -80,9 +148,9 @@ class LoginController {
       });
 
       return res.json({ token: newAccessToken });
+
     } catch (err) {
       next(err);
     }
   }
-}
-export default new LoginController();
+*/
