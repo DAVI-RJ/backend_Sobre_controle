@@ -28,9 +28,7 @@ class customersControllers {
       });
 
     }catch(err){
-      const error = new Error("error server.");
-      error.statusCode = 500;
-      return next(err);
+      next(err);
     }
   }
   // Deletar cliente do sistema
@@ -48,9 +46,7 @@ class customersControllers {
       }
       
     }catch(err){
-      const error = new Error("Error server");
-      error.statusCode = 500; 
-      return next(err)
+      next(err)
     }
   }
 }

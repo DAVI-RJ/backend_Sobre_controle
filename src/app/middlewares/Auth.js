@@ -1,26 +1,23 @@
-import JWT from 'jsonwebtoken';
-import authConfig from '../../config/authConfig.js';
+import TokenServices from "../services/TokenServices.js";
+import AppError from "../utils/AppErrors.js";
 
+// middleware para verificar o token no cabeçalho
 export default async (req, res, next) => {
 	const authHeader = req.headers.authorization;
-
 	if (!authHeader) {
 		return res.status(401).json({ error: "Token not provided" });
 	}
 
 	// Primeiro declare o token
 	const [, token] = authHeader.split(" ");
-
 	try {
-		const decoded = await (JWT.verify)(token, authConfig.secret);
-
+		const decoded = await TokenServices.verifyRefreshToken(token);
 		req.userId = decoded.id;
-		console.log(decoded);
-
+		req.companyId = decoded.company_id;
 		return next();
 
-	} catch (err) {
-		return res.status(401).json({ error: "Token invalid", err});
+	} catch(err) {
+		return next(new AppError("Token invalid", 401, err));
 	}
 };
 

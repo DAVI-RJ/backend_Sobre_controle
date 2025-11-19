@@ -4,11 +4,26 @@ import Sequelize, { Model} from "sequelize";
 class Address extends Model {
   static init (sequelize){
     super.init ({
-      street: Sequelize.STRING(100),
-      number: Sequelize.STRING(10), 
-      neighborhood: Sequelize.STRING(100),
-      city: Sequelize.STRING(100),
-      state: Sequelize.STRING(100), 
+      street: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+      },
+      number: {
+        type: Sequelize.STRING(15),
+        defaultValue: 0, 
+      }, 
+      neighborhood: {
+        type: Sequelize.STRING(40),
+        allowNull: false, 
+      },
+      city: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+      },
+      state: {
+        type: Sequelize.STRING(2),
+        allowNull: false,
+      },
       zip: Sequelize.STRING(10)
     },
     {

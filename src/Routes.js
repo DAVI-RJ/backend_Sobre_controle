@@ -17,8 +17,8 @@ routes.get("/", (req, res) => {
 
 routes.post("/login", validateLogin, LoginController.show);
 routes.post("/refresh", LoginController.refresh);
-routes.post("/register", validateCompanies, CompaniesController.create);
-routes.post("/address", validateAddress, AddressController.create);
+routes.post("/company/register", validateCompanies, CompaniesController.create);
+routes.post("/company/address", validateAddress, AddressController.create);
 
 /* routas privadas */ 
 routes.use(authToken); 
@@ -27,18 +27,18 @@ routes.get("/address/", AddressController.show);
 routes.put("/address/:id", AddressController.update);
 routes.delete("/address/:id", AddressController.destroy);
 
-routes.get("/companies/:id", CompaniesController.show); 
-routes.put("/companies/:id", CompaniesController.update); 
-routes.delete("/companies/:id", CompaniesController.destroy); 
+routes.get("/company/:id", CompaniesController.show); 
+routes.put("/company/:id", CompaniesController.update); 
+routes.delete("/company/:id", CompaniesController.destroy); 
 
-routes.post("/supplier", SupplierController.create);
-routes.delete("/supplier/:id", SupplierController.destroy);
+routes.post("/company/supplier", SupplierController.create);
+routes.delete("/company/supplier/:id", SupplierController.destroy);
 
-routes.get("/products", productsControllers.show);
-routes.get("/porducts/:id", productsControllers.index); 
-routes.post("/products", validateProduct, productsControllers.create); 
-routes.put("/products/:id", productsControllers.update);
-routes.delete("/products/:id", productsControllers.destroy);
+routes.get("/company/:companyId/products", productsControllers.show);
+routes.get("/company/:companyId/products/:id", productsControllers.index);
+routes.post("/company/:companyId/products", validateProduct, productsControllers.create); 
+routes.put("/company/:companyId/products/:id", productsControllers.update);
+routes.delete("company/:companyId/products/:id", productsControllers.destroy);
 
 
 export default routes;

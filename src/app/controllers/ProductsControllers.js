@@ -50,7 +50,7 @@ class productsControllers {
 						where = {
 								...where,
 								createdAt: {
-										[Op.gte]: parseISO(createBefore),
+										[Op.lte]: parseISO(createBefore),
 								}
 						};
 				}
@@ -58,7 +58,7 @@ class productsControllers {
 						where = {
 								...where,
 								createdAt: {
-										[Op.lte]: parseISO(createAfter),
+										[Op.gte]: parseISO(createAfter),
 								}
 						};
 				}
@@ -66,7 +66,7 @@ class productsControllers {
 						where = {
 								...where,
 								updatedAt: {
-										[Op.gte]: parseISO(updateBefore),
+										[Op.lte]: parseISO(updateBefore),
 								}
 						};
 				}
@@ -74,14 +74,12 @@ class productsControllers {
 						where = {
 								...where,
 								updatedAt: {
-										[Op.lte]: parseISO(updateAfter),
+										[Op.gte]: parseISO(updateAfter),
 								}
 						};
 				}
 
         let order = [];
-
-				console.log("where: ", where);
 
 				if (sort) {
 					order = sort.split(",").map(item => item.split(":"));
@@ -92,19 +90,18 @@ class productsControllers {
 					order,
 					limit,
 					offset
-				});
+				});	
 
-				return res.json(result);
+				return res.json(result)
 
     } catch (err) {
-			const error = new Error("no records found.");
-      error.statusCode = 404;
+      err.statusCode = err.statusCode || 500;
       next(err); 
     }
   }
 // retorna o produto por id
 	async index (req, res, next){
-		const {id} = req.params.id;
+		const {id } = req.params;
 
 		try{
 			const result = await Products.findOne({
@@ -116,15 +113,14 @@ class productsControllers {
 			res.json(result);
 
 		}catch(err){
-			const error = new Error("no records found with this id.");
-      error.statusCode = 404;
       next(err); 
 		}
 	}
 
 	// criação de novo produto
   async create(req, res, next) {
-		const { name, description, price, quantity } = req.body;
+		const { name, description, price, quantity} = req.body;
+		const company_id = req.companyId; 
 
 		try {
 			const result = await Products.findOne({
@@ -143,17 +139,15 @@ class productsControllers {
 				name, 
 				description, 
 				price, 
-				quantity 
+				quantity,
+				company_id: company_id
 			});
 
 			return res.status(201).json({message: product});
 
 		}catch(err) {
-			const error = new Error("Error server.");
-      error.statusCode = 400;
       next(err); 
 		}
-		
   }
 
   // Atualizar produto
@@ -177,8 +171,6 @@ class productsControllers {
 			return res.json(updatedProduct);
 
     } catch (err) {
-      const error = new Error("Error server.");
-      error.statusCode = 500;
       next(err);
     }
   }
@@ -197,8 +189,6 @@ class productsControllers {
 			};
 
     } catch (err) {
-			const error = new Error("Error server.");
-      error.statusCode = 500;
       next(err); 
     }
   }
