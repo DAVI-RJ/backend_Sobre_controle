@@ -6,13 +6,13 @@ class customersControllers {
     const {cnpj} = req.body;
 
     try{
-      const result = await Customers.findOne({
+      const customer = await Customers.findOne({
         where: {
           cnpj
         }
       });
 
-      if(result){
+      if(customer){
         res.json({
           message: "this customers alredy register"
         }); 
@@ -36,10 +36,10 @@ class customersControllers {
     const id = req.id.params; 
 
     try {
-      const result = await Customers.findByPk(id);
+      const customer = await Customers.findByPk(id);
 
-      if(result){
-        Customers.destroy(result);
+      if(customer){
+        Customers.destroy(customer);
         res.status(200).json({message: "Custumer deleted sucessufuly"}); 
       }else {
         res.status(404).json({message: "Custumer not found"})

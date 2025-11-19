@@ -27,7 +27,8 @@ class LoginController {
       next(err); 
     }
   }
-
+  
+  // atualiza o token
   async refresh (req, res, next) {
     const cookiesToken = req.cookies.refreshToken; 
 

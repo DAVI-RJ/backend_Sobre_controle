@@ -7,14 +7,14 @@ class CompaniesController {
 	async show (req, res, next){
 		const id = req.params.id;
 		try{
-			const result = await Companies.findOne({
+			const company = await Companies.findOne({
 				where: {
 					id: id
 				}
 			}); 
-			if(result){
+			if(company){
 
-				const {name, cnpj } = result; 
+				const {name, cnpj } = company; 
 				res.status(200).json({
 					data: {
 							name, 
@@ -37,13 +37,13 @@ class CompaniesController {
 		const { address_id } = req.params
 
 		try {		
-			const result = await Companies.findOne({
+			const company = await Companies.findOne({
 				where: {
 					[Op.or]: [{ email: email },{ cnpj: cnpj }]
 						}
 					});
 				
-			if(result) {
+			if(company) {
 
 				return res.json({message: "try login"});
 				
@@ -104,12 +104,12 @@ class CompaniesController {
   
 	// Excluir conta
 	async destroy (req, res, next) {
-  	const Company = await Companies.findByPk(req.params.id);
+  	const company = await Companies.findByPk(req.params.id);
 		try{
-			if(!Company) {
+			if(!company) {
       return res.status(404).json({message: "not found any company with id"});
   		}
-  		await Company.destroy();
+  		await company.destroy();
 
   		return res.json({mensage: "User deleted successfully."});
 		}catch(err){

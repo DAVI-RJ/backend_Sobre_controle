@@ -6,12 +6,12 @@ class SupplierController {
 		const {cnpj } = req.body;
 
 		try {		
-			const result = await Suppliers.findOne({
+			const supplier = await Suppliers.findOne({
 				where: {
 					cnpj: cnpj 
 					}
 				});
-			if(result) {
+			if(supplier) {
 
 				return res.json({
 					message: "Supplier alredy registred"

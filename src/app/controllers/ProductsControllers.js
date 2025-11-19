@@ -85,14 +85,14 @@ class productsControllers {
 					order = sort.split(",").map(item => item.split(":"));
 				}
 
-				const result = await Products.findAll({
+				const product = await Products.findAll({
 					where,
 					order,
 					limit,
 					offset
 				});	
 
-				return res.json(result)
+				return res.json(product)
 
     } catch (err) {
       err.statusCode = err.statusCode || 500;
@@ -104,13 +104,13 @@ class productsControllers {
 		const {id } = req.params;
 
 		try{
-			const result = await Products.findOne({
+			const product = await Products.findOne({
 				where: {
 					id
 				}
 			});
 
-			res.json(result);
+			res.json(product);
 
 		}catch(err){
       next(err); 
@@ -123,7 +123,7 @@ class productsControllers {
 		const company_id = req.companyId; 
 
 		try {
-			const result = await Products.findOne({
+			const product = await Products.findOne({
 				where: { 
 					name : {
 						[Op.iLike]: `%${name}%`,
@@ -131,11 +131,11 @@ class productsControllers {
 				}
 			});
 
-			if(result){
+			if(product){
 				return res.json({message: "this product already registered"});
 			}
 
-			const product = await Products.create({ 
+			const newProduct = await Products.create({ 
 				name, 
 				description, 
 				price, 
@@ -143,7 +143,7 @@ class productsControllers {
 				company_id: company_id
 			});
 
-			return res.status(201).json({message: product});
+			return res.status(201).json({message: newProduct});
 
 		}catch(err) {
       next(err); 
