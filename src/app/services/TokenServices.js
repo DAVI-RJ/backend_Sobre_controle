@@ -13,5 +13,9 @@ class TokenServices {
   verifyAccessToken(token) {
     return JWT.verify(token, authConfig.secret);
   }
+  
+  verifyRefreshToken(token) {
+    return JWT.verify(token, authConfig.refreshSecret);
+  }
 }
 export default new TokenServices();

@@ -14,6 +14,11 @@ class AuthService {
       return company;
   }
 
+  async validateUserById(id){
+    const company = await Companies.findByPk(id);
+    return company;
+  }
+
   async getToken(company){
     const payload = {id: company.id, company_id: company.id}; 
     const accessToken = TokenServices.createAccessToken(payload);

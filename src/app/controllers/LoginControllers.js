@@ -31,32 +31,27 @@ class LoginController {
   // atualiza o token
   async refresh (req, res, next) {
     const cookiesToken = req.cookies.refreshToken; 
-
-    try {
       if(!cookiesToken) throw new AppError('Refresh token not provided', 401);
-
-      let payload;
       try {
-        payload = TokenServices.verifyRefreshToken(cookiesToken)
-      } catch {
-        throw new AppError("Invalid refresh token", 401);
+        const payload = TokenServices.verifyRefreshToken(cookiesToken); 
+        const company = await AuthService.validateUserById(payload.id);
+
+          if(!company) throw new AppError('Company not found', 404);
+          const {accessToken, refreshToken} = await AuthService.getToken(company);
+        
+          res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict', 
+            path: '/refresh',
+            maxAge: 30 * 24 * 60 * 60 * 1000
+          });
+
+          return res.json({accessToken});
+
+      }catch(err){
+        next(err);
       }
-
-      const {accessToken, refreshToken} = await AuthService.getToken({id: payload.id});
-      
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'strict', 
-        path: '/refresh',
-        maxAge: 30 * 24 * 60 * 60 * 1000
-      });
-
-      return res.json({accessToken});
-
-    }catch(err){
-      next(err);
     }
-  }
 }
 export default new LoginController();
