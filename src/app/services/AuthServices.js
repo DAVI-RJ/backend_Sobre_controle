@@ -8,14 +8,14 @@ class AuthService {
     const company = await Companies.findOne({where: {email}})
     if(!company) throw new AppError("User not found", 404)
 
-    const passwordMatch = await bcrypt.compare(password, company.password);
-    if (!passwordMatch) throw new AppError("Incorrect password", 401);
+      const passwordMatch = await bcrypt.compare(password, company.password);
+      if (!passwordMatch) throw new AppError("Incorrect password", 401);
 
-    return company
+      return company;
   }
 
   async getToken(company){
-    const payload = {id: company.id}; 
+    const payload = {id: company.id, company_id: company.id}; 
     const accessToken = TokenServices.createAccessToken(payload);
     const refreshToken = TokenServices.createRefreshToken(payload);
   

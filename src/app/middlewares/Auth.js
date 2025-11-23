@@ -11,9 +11,10 @@ export default async (req, res, next) => {
 	// Primeiro declare o token
 	const [, token] = authHeader.split(" ");
 	try {
-		const decoded = await TokenServices.verifyRefreshToken(token);
+		const decoded = await TokenServices.verifyAccessToken(token);
 		req.userId = decoded.id;
 		req.companyId = decoded.company_id;
+		
 		return next();
 
 	} catch(err) {

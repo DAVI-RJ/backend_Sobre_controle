@@ -10,8 +10,8 @@ class TokenServices {
     return JWT.sign(payload, authConfig.refreshSecret, {expiresIn: authConfig.expiresIn})
   }
 
-  verifyRefreshToken(token) {
-    return JWT.verify(token, authConfig.refreshSecret);
+  verifyAccessToken(token) {
+    return JWT.verify(token, authConfig.secret);
   }
 }
 export default new TokenServices();

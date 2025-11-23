@@ -21,7 +21,7 @@ class LoginController {
         maxAge: 30 * 24 * 60 * 60 * 1000
       });
 
-      return res.json({ accessToken});
+      return res.json({accessToken});
 
     }catch (err) {
       next(err); 

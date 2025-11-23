@@ -120,7 +120,11 @@ class productsControllers {
 	// criação de novo produto
   async create(req, res, next) {
 		const { name, description, price, quantity} = req.body;
-		const company_id = req.companyId; 
+		const companyId = req.companyId; 
+
+		if(!companyId){
+			res.json({message: "Company ID is required to create a product"});
+		}
 
 		try {
 			const product = await Products.findOne({
@@ -140,10 +144,10 @@ class productsControllers {
 				description, 
 				price, 
 				quantity,
-				company_id: company_id
+				company_id: companyId
 			});
 
-			return res.status(201).json({message: newProduct});
+			return res.status(201).json(newProduct);
 
 		}catch(err) {
       next(err); 
@@ -154,11 +158,12 @@ class productsControllers {
   async update(req, res, next) {
 		const { id } = req.params;
     const { name, description, price, quantity } = req.body;
+		const companyId = req.companyId; 
 		
     try {
       const [updated] = await Products.update(
         { name, description, price, quantity },
-        { where: { id } }
+        { where: { id, company_id: companyId } }
       );
       if (!updated) {
 				return res.status(404).json({ message: "product not found" });
