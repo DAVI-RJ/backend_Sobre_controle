@@ -33,8 +33,7 @@ class CompaniesController {
 	}
 	// Endpoint para cadastro
 	async create (req, res, next) {
-		const { email, password, cnpj } = req.body;
-		const { address_id } = req.params
+		const { email, password, cnpj} = req.body;
 
 		try {		
 			const company = await Companies.findOne({
@@ -52,7 +51,7 @@ class CompaniesController {
 				const password_hash = await bcrypt.hash(password, 8);
 					
 				const newCompany = await Companies.create({
-					...req.body, password: password_hash, address_id: address_id});
+					...req.body, password: password_hash});
 				
 				const {name, email, cnpj } = newCompany;
 

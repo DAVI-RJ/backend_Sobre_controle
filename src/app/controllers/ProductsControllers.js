@@ -12,7 +12,11 @@ class productsControllers {
       const limit = Number(req.query.limit) || 10;
       const offset = (page - 1) * limit;
 
-      let where = {};
+			const companyId = req.companyId; 
+
+      let where = {
+				company_id: companyId
+			};
       
 				if (name) {
 						where = {
