@@ -6,6 +6,7 @@ import authToken from "./app/middlewares/Auth.js";
 import CompaniesController from "./app/controllers/CompaniesControllers.js";
 import AddressController from "./app/controllers/AddressControllers.js";
 import LoginController from "./app/controllers/LoginControllers.js";
+import CustomersControllers from "./app/controllers/CustomersControllers.js";
 import SupplierController from "./app/controllers/SuppliersControllers.js";
 import productsControllers from "./app/controllers/ProductsControllers.js"; 
 
@@ -30,6 +31,9 @@ routes.delete("/address/:id", AddressController.destroy);
 routes.get("/company/:id", CompaniesController.show); 
 routes.put("/company/:id", CompaniesController.update); 
 routes.delete("/company/:id", CompaniesController.destroy); 
+
+routes.get("/company/customers/list", CustomersControllers.show);
+routes.post("/company/customer", CustomersControllers.create);
 
 routes.post("/company/supplier", SupplierController.create);
 routes.delete("/company/supplier/:id", SupplierController.destroy);

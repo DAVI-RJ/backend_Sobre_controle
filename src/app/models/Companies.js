@@ -42,8 +42,13 @@ class Companies extends Model {
     });
   }
   static associate(models){
-    this.belongsTo(models.Address)
+    this.belongsTo(models.Address);
     this.hasMany(models.Product);
+    this.belongsToMany(models.Customers, {
+      through: 'customer_companies',
+      foreignKey: 'company_id',
+      otherKey: 'customer_id'
+    });
   }
 }
 
