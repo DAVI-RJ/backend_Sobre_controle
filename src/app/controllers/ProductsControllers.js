@@ -2,7 +2,7 @@ import { Op } from "sequelize";
 import { parseISO } from "date-fns";
 import Products from "../models/Products.js"
 
-class productsControllers {
+class ProductsControllers {
   // Listar de produtos com filtros opcionais
   async show(req, res, next) {
     try {
@@ -203,4 +203,4 @@ class productsControllers {
   }
 }
 
-export default new productsControllers();
+export default new ProductsControllers;

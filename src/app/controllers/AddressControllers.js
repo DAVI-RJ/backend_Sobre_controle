@@ -33,10 +33,11 @@ class AddressController {
   // Criar endereço no cadastro do usuário, cliente e fornecedor
   async create(req, res, next) {
     const { street, number, neighborhood, city, state } = req.body;
-
+    
     try {
       const newAddress = await Address.create({ street, number, neighborhood, city, state });
-      return res.status(201).json(newAddress, {id: newAddress.id});
+      console.log(newAddress?.id)
+      return res.status(201).json(newAddress?.id);
     } catch (err) {
       next(err);
     }

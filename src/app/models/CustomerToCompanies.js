@@ -30,6 +30,11 @@ class CustomerToCompanies extends Model {
       underscored: true
     });
   }
+
+  static associate(models) {
+    this.belongsTo(models.Customers, { foreignKey: 'customer_id', targetKey: 'id' });
+    this.belongsTo(models.Companies, { foreignKey: 'company_id', targetKey: 'id' });
+  }
 }
 
 export default CustomerToCompanies;

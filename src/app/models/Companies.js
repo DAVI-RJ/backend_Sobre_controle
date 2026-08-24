@@ -43,7 +43,7 @@ class Companies extends Model {
   }
   static associate(models){
     this.belongsTo(models.Address);
-    this.hasMany(models.Product);
+    this.hasMany(models.Products);
     this.belongsToMany(models.Customers, {
       through: 'customer_companies',
       foreignKey: 'company_id',

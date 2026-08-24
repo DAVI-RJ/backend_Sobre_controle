@@ -4,11 +4,11 @@ import TokenServices from '../services/TokenServices.js';
 
 class LoginController {
   // login user
-  async show (req, res, next) { 
+  async store (req, res, next) { 
     const { email, password } = req.body;
     
     try {
-      if(!email || !password) new AppError("Email and password are required", 400); 
+      if(!email || !password) throw new AppError("Email and password are required", 400); 
 
       const company = await AuthService.validateUser(email,password); 
       const {accessToken, refreshToken} = await AuthService.getToken(company)    

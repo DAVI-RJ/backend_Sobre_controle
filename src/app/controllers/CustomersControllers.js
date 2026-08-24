@@ -1,7 +1,8 @@
 import Customers from "../models/Customers.js";
-import CustomerToCompanies from "../models/CustomerToCompanies.js"; 
+import Companies from "../models/Companies.js"; 
+import CustomerToCompanies from "../models/CustomerToCompanies.js";
 
-class customersControllers {
+class CustomersControllers {
   // Listar todos os clientes da empresa 
   async show (req, res, next) {
     try{
@@ -10,13 +11,32 @@ class customersControllers {
       const limit = Number(req.query.limit) || 10;
       const offset = (page - 1) * limit;
       const companyId = req.companyId; 
-
       let order = [];
 
       if (sort) {
         order = sort.split(",").map(item => item.split(":"));
       }
-      
+      let customersList; 
+      if (req.path.includes("search")) {
+        customersList = await Customers.findAll({
+          order,
+          offset,
+          limit
+        });
+      } else {
+        // lista clientes vinculados à empresa
+        customersList = await Customers.findAll({
+        include: [{
+          model: Companies,
+          where: { id: companyId },
+          attributes: []
+        }],
+        order,
+        offset,
+        limit
+      });
+    }
+    /* 
       const customersList = await Customers.findAll({
         include: [{
           model: CustomerToCompanies,
@@ -26,7 +46,7 @@ class customersControllers {
         offset,
         limit
       });
-      //const {name, cnpj} = customersList;
+      */
       return res.json(customersList)
       
     }catch(err){
@@ -35,13 +55,17 @@ class customersControllers {
   }
   // Criar um novo cliente
   async create (req, res, next){
-    const {cnpj, ...data} = req.body;
+    const { name, email, phone, cnpj, address_id } = req.body;
     const companyId = req.companyId; 
     
+    if(!companyId){
+			res.json({message: "Company ID is required to create a product"});
+		}
+
     try {
-      let customer = await Customers.findOne({ where: { cnpj } });
+      let customer = await Customers.findOne({ where: { cnpj} });
       if (!customer) {
-        customer = await Customers.create(data);
+        customer = await Customers.create({cnpj, name, phone, email, address_id});
       }
       // cria vínculo se não existir
       await CustomerToCompanies.findOrCreate({
@@ -49,7 +73,7 @@ class customersControllers {
       });
       
       return res.status(201).json({
-        message: "Cliente vinculado com sucesso",
+        message: "Client connection create success",
         data: customer
       });
 
@@ -76,4 +100,4 @@ class customersControllers {
     }
   }
 }
-export default new customersControllers; 
+export default new CustomersControllers; 

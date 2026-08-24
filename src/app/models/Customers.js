@@ -29,7 +29,10 @@ class Customers extends Model {
         type: Sequelize.ENUM("enum_companies_status"),
         field: "status"
       }, 
-      address_id: Sequelize.INTEGER
+      address_id: {
+        type: Sequelize.INTEGER,
+        field: "address_id", 
+      }
     },
     {
       sequelize,
