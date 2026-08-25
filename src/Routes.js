@@ -40,6 +40,7 @@ routes.get("/company/customers/list", CustomersControllers.show);
 routes.get("/company/customers/list/search", CustomersControllers.show);
 routes.post("/company/:companyId/customer", CustomersControllers.create);
 
+routes.get("/company/supplier/list", SupplierController.show);
 routes.post("/company/supplier", SupplierController.create);
 routes.delete("/company/supplier/:id", SupplierController.destroy);
 

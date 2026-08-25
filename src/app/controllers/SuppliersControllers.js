@@ -1,6 +1,30 @@
 import Suppliers from "../models/Suppliers.js";
 
 class SupplierController {
+
+	// Listar fornecedores
+	async show (req, res, next){
+		const companyId = req.companyId;
+		
+		try{
+			const suppliers = await Suppliers.findAll({
+				where: {
+					companyId: companyId
+				}});
+				if(suppliers.length > 0){
+					return res.status(200).json({
+						data: suppliers
+					});
+				}else{
+					res.status(404).json({message: "suppliers not found"});
+				}
+			
+		}catch(err){
+			const error = new Error("error server.");
+			error.statusCode = 500;
+			next(err);
+		}
+	}
 	// Endpoint para criação de novo fornecedor
   async create (req, res, next) {
 		const {cnpj } = req.body;
