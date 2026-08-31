@@ -47,7 +47,7 @@ routes.get("/company/:companyId/products", ProductsControllers.show);
 routes.get("/company/:companyId/products/:id", ProductsControllers.index);
 routes.post("/company/:companyId/products", validateProduct, ProductsControllers.create); 
 routes.put("/company/:companyId/products/:id", ProductsControllers.update);
-routes.delete("company/:companyId/products/:id", ProductsControllers.destroy);
+routes.delete("/company/:companyId/products/:id", ProductsControllers.destroy);
 
 
 export default routes;

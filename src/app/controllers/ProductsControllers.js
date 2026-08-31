@@ -186,11 +186,11 @@ class ProductsControllers {
 
   // Deletar produto
   async destroy(req, res, next) {
+		const { id } = req.params;
+		const companyId = req.companyId;
     try {
-      const { id } = req.params.id;
-
       const deleted = await Products.destroy({
-				where: { id } 
+				 where: { id, company_id: companyId } 
 			});
 
       if (!deleted) {
