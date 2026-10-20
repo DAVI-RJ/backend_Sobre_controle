@@ -1,4 +1,4 @@
-import logger from '../../../logs/logs.js';
+import logger from "../../../logs/logs.js"
 
 export default function errorHandler(err, req, res, next) {
   logger.error({
@@ -9,15 +9,17 @@ export default function errorHandler(err, req, res, next) {
     body: req.body,
     params: req.params,
     query: req.query,
-  });
+  })
 
-  const statusCode = err.statusCode && err.statusCode >= 400 && err.statusCode < 600 ? err.statusCode : 500;
-  let errorMessage = process.env.NODE_ENV === 'production'
-    ? 'Internal Server Error'
-    : err.message || 'Internal Server Error';
+  const statusCode =
+    err.statusCode && err.statusCode >= 400 && err.statusCode < 600 ? err.statusCode : 500
+  let errorMessage =
+    process.env.NODE_ENV === "production"
+      ? "Internal Server Error"
+      : err.message || "Internal Server Error"
 
   res.status(statusCode).json({
     error: errorMessage,
-    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
-  });
+    ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
+  })
 }

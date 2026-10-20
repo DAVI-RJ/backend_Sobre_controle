@@ -9,3 +9,11 @@
 eslint.config.mjs
 nodemon.json
 yarn.lock
+
+#formatação
+.prettierrc
+
+#config
+.vscode
+settings.json
+jsconfig.json

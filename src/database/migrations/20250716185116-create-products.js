@@ -1,49 +1,49 @@
-'use strict';
+"use strict"
 
 export default {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('products', { 
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("products", {
       id_product: {
         type: Sequelize.INTEGER,
-        allowNull: false, 
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       name_product: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       price: {
-        type: Sequelize.DECIMAL(10,2),
-        allowNull: false
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
       },
       quantity: {
-        type: Sequelize.INTEGER, 
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        Reference: {models: "companies", key: "id"},  
+        Reference: { models: "companies", key: "id" },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE"
-      }
-    });
+        onDelete: "CASCADE",
+      },
+    })
   },
 
-  async down (queryInterface) {
-    await queryInterface.dropTable('products');
-  }
-};
+  async down(queryInterface) {
+    await queryInterface.dropTable("products")
+  },
+}
