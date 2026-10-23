@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "main": "index.js",
   "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
