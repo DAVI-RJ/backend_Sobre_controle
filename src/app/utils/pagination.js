@@ -1,4 +1,4 @@
-export default function pagination(
+export default function parsePagination(
   query,
   { defaultLimit = 10, maxLimit = 100, maxPage = 100 } = {}
 ) {
