@@ -1,5 +1,5 @@
 import AuthService from "../services/AuthServices.js"
-import AppError from "../utils/AppErrors.js"
+import AppError from "#src/app/utils/AppErrors.js"
 import TokenServices from "../services/TokenServices.js"
 
 class LoginController {

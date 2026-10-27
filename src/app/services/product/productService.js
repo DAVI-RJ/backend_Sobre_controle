@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 import { parseISO } from "date-fns";
-import { Products } from "../models";
-import { listEntities } from "./listing/list-entities";
+import  Products from "#src/app/models/Products.js";
+import { listEntities } from "#src/app/utils/listEntities.js";
 
 const ALLOWED_SORTS = ["id", "name", "description", "price", "quantity", "createdAt", "updatedAt"];
 const ATTRIBUTES = ["id", "name", "description", "price", "quantity", "createdAt", "updatedAt"];

@@ -1,5 +1,5 @@
-import { parsePagination } from "./pagination";
-import { buildOrder } from "./buildOrder";
+import { parsePagination } from "./pagination.js";
+import { buildOrder } from "./buildOrder.js";
 
 export async function listEntities({
   model,

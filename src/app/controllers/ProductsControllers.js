@@ -1,5 +1,5 @@
-import Products from "#/models/Products.js";
-import { listProducts } from "#/services/product/productService.js";
+import Products from "#src/app/models/Products.js";
+import { listProducts } from "#src/app/services/product/productService.js";
 
 class ProductsControllers {
   // Listar de produtos com filtros opcionais
