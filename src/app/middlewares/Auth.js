@@ -1,5 +1,5 @@
-import TokenServices from "../services/TokenServices.js"
-import AppError from "../utils/AppErrors.js"
+import TokenServices from "#src/app/services/TokenServices.js"
+import AppError from "#src/app/utils/AppErrors.js"
 
 // middleware para verificar o token no cabeçalho
 export default async (req, res, next) => {

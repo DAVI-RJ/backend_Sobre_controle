@@ -1,6 +1,6 @@
-import AuthService from "../services/AuthServices.js"
+import AuthService from "#src/app/services/AuthServices.js"
 import AppError from "#src/app/utils/AppErrors.js"
-import TokenServices from "../services/TokenServices.js"
+import TokenServices from "#src/app/services/TokenServices.js"
 
 class LoginController {
   // login user

@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken"
-import authConfig from "../../config/authConfig.js"
+import authConfig from "#src/config/authConfig.js"
 
 class TokenServices {
   createAccessToken(payload) {

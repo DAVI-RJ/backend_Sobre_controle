@@ -1,4 +1,4 @@
-import Suppliers from "../models/Suppliers.js"
+import Suppliers from "#src/app/models/Suppliers.js"
 
 class SupplierController {
   // Endpoint para criação de novo fornecedor

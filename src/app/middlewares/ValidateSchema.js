@@ -1,8 +1,8 @@
 import * as Yup from "yup"
-import { loginSchema } from "../schemas/LoginSchema.js"
-import { companiesSchema } from "../schemas/CompanySchema.js"
-import { productSchema } from "../schemas/ProductSchema.js"
-import { addressSchema } from "../schemas/AddressSchema.js"
+import { loginSchema } from "#src/app/schemas/LoginSchema.js"
+import { companiesSchema } from "#src/app/schemas/CompanySchema.js"
+import { productSchema } from "#src/app/schemas/ProductSchema.js"
+import { addressSchema } from "#src/app/schemas/AddressSchema.js"
 
 const validate = (schema) => async (req, res, next) => {
   try {

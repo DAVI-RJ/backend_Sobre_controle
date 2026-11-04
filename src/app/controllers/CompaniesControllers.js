@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import bcrypt from "bcryptjs"
-import Companies from "../models/Companies.js"
+import Companies from "#src/app/models/Companies.js"
 
 class CompaniesController {
   // Listar uma empresa

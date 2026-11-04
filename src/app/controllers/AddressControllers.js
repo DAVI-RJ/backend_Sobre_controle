@@ -1,4 +1,4 @@
-import Address from "../models/Address.js"
+import Address from "#src/app/models/Address.js"
 import { Op } from "sequelize"
 
 class AddressController {

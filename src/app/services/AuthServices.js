@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs"
-import Companies from "../models/Companies.js"
-import AppError from "../utils/AppErrors.js"
+import Companies from "#src/app/models/Companies.js"
+import AppError from "#src/app/utils/AppErrors.js"
 import TokenServices from "./TokenServices.js"
 
 class AuthService {

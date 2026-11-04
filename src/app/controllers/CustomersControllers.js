@@ -1,6 +1,6 @@
-import Customers from "../models/Customers.js"
-import Companies from "../models/Companies.js"
-import CustomerToCompanies from "../models/CustomerToCompanies.js"
+import Customers from "#src/app/models/Customers.js"
+import Companies from "#src/app/models/Companies.js"
+import CustomerToCompanies from "#src/app/models/CustomerToCompanies.js"
 
 class CustomersControllers {
   // Listar todos os clientes da empresa
